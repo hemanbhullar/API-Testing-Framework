@@ -1,0 +1,43 @@
+name: APIFramework
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests with Allure
+      run: |
+        python -m pytest --alluredir=reports/allure -m "smoke or regression"
+
+    - name: Upload Allure results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: allure-results
+        path: reports/allure
+
+    - name: Generate Allure Report
+      uses: allure-framework/allure-action@release/v2
+      if: always()
+      with:
+        allure_results: reports/allure
+        allure_report: reports/allure-report
+        allure_config: allure.yaml

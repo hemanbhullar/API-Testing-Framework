@@ -1,0 +1,5 @@
+[
+  {"case": "missing_name",  "payload": {"job": "sdet"},              "expected": 201},
+  {"case": "empty_payload", "payload": {},                           "expected": 201},
+  {"case": "extra_field",   "payload": {"name": "x", "role": "qa"},  "expected": 201}
+]

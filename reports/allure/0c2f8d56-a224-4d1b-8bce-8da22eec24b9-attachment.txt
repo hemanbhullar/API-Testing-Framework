@@ -1,0 +1,2 @@
+[32mINFO    [0m utils.api_client:api_client.py:74 Running in public demo mode (no auth header)
+[32mINFO    [0m utils.api_client:api_client.py:49 PUT /users/2 → 200
